@@ -59,13 +59,27 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
 
     protected void inOrder(TreeNode<E> root) {
         if (root == null) return;
-        inOrder(root.left);
-        System.out.println(root.element + " ");
         inOrder(root.right);
+        System.out.println(root.element + " ");
+        inOrder(root.left);
     }
 
     @Override
     public void inOrder() {
         inOrder(root);
     }
+
+    public boolean search(E element) {
+        TreeNode<E> current = root;
+        while (current != null) {
+            if (element.compareTo(current.element) < 0) {
+                current = current.left;
+            } else if (element.compareTo(current.element) > 0) {
+                current = current.right;
+            } else return true;
+        }
+        return false;
+    }
+
+
 }
