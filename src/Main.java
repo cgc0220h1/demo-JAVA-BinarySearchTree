@@ -13,10 +13,18 @@ public class Main {
         System.out.println("In-order (sorted by method compareTo of super class): ");
         tree.inOrder();
         System.out.println("The Number of node is: " + tree.getSize());
+        System.out.println("-------------------------");
 
         //traverse tree preorder
         System.out.println("Pre-order: ");
         tree.preOrder();
         System.out.println("The Number of node is: " + tree.getSize());
+        System.out.println("-------------------------");
+
+        //traverse tree postorder
+        System.out.println("Post-order: ");
+        tree.postOrder();
+        System.out.println("The Number of node is: " + tree.getSize());
+        System.out.println("-------------------------");
     }
 }
