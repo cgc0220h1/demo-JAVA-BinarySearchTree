@@ -57,17 +57,18 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return size;
     }
 
-    protected void inOrder(TreeNode<E> root) {
-        if (root == null) return;
-        inOrder(root.right);
-        System.out.println(root.element + " ");
-        inOrder(root.left);
-    }
-
     @Override
     public void inOrder() {
         inOrder(root);
     }
+
+    protected void inOrder(TreeNode<E> node) {
+        if (node == null) return;
+        inOrder(node.left);
+        System.out.println(node.element + " ");
+        inOrder(node.right);
+    }
+
 
     public boolean search(E element) {
         TreeNode<E> current = root;
@@ -81,5 +82,14 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return false;
     }
 
+    public void preOrder() {
+        preOrder(root);
+    }
 
+    protected void preOrder(TreeNode<E> node) {
+        if (node == null) return;
+        System.out.println(node.element + " ");
+        preOrder(node.left);
+        preOrder(node.right);
+    }
 }
