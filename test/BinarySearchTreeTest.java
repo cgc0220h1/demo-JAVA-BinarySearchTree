@@ -63,4 +63,40 @@ class BinarySearchTreeTest {
     void testRemoveNodeHas2Child() {
         assertTrue(binarySearchTree.delete("Michael"));
     }
+
+    @DisplayName("Tìm phần tử tồn tại trong list bằng Đệ quy tìm kiếm nhị phân")
+    @Test
+    void testBinarySearchRecursiveExistData() {
+        int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
+        int valueToFind = 79;
+        int expectedIndex = 12;
+        assertEquals(expectedIndex,BinarySearch.binarySearchRecursive(list,valueToFind));
+    }
+
+    @DisplayName("Tìm phần tử không tồn tại trong list ở cuối list bằng Đệ quy tìm kiếm nhị phân")
+    @Test
+    void testBinarySearchRecursiveNonExistDataEnd() {
+        int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
+        int valueToFind = 80;
+        int expectedIndex = -1;
+        assertEquals(expectedIndex,BinarySearch.binarySearchRecursive(list,valueToFind));
+    }
+
+    @DisplayName("Tìm phần tử không tồn tại trong list ở vị trí giữa bằng Đệ quy tìm kiếm nhị phân")
+    @Test
+    void testBinarySearchRecursiveNonExistDataMiddle() {
+        int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
+        int valueToFind = 12;
+        int expectedIndex = -1;
+        assertEquals(expectedIndex,BinarySearch.binarySearchRecursive(list,valueToFind));
+    }
+
+    @DisplayName("Tìm phần tử không tồn tại trong list ở vị trí đầu bằng Đệ quy tìm kiếm nhị phân")
+    @Test
+    void testBinarySearchRecursiveNonExistDataBegin() {
+        int[] list = {2, 4, 7, 10, 11, 45, 50, 59, 60, 66, 69, 70, 79};
+        int valueToFind = 1;
+        int expectedIndex = -1;
+        assertEquals(expectedIndex,BinarySearch.binarySearchRecursive(list,valueToFind));
+    }
 }
