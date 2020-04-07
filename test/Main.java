@@ -2,13 +2,13 @@ public class Main {
     public static void main(String[] args) {
         //create a Binary Search Tree
         BinarySearchTree<String> tree = new BinarySearchTree<>();
-        tree.insert("George");
-        tree.insert("Michael");
-        tree.insert("Tom");
-        tree.insert("Adam");
-        tree.insert("John");
-        tree.insert("Peter");
-        tree.insert("Daniel");
+        tree.insertRecursive("George");
+        tree.insertRecursive("Michael");
+        tree.insertRecursive("Tom");
+        tree.insertRecursive("Adam");
+        tree.insertRecursive("John");
+        tree.insertRecursive("Peter");
+        tree.insertRecursive("Daniel");
         //traverse tree
         System.out.println("In-order (sorted by method compareTo of super class): ");
         tree.inOrderDisplay();

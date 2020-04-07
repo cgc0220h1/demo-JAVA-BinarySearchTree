@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.policy.EffectiveAlternativeSelector;
-
 public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
     private static class TreeNode<E> {
         private E element;
@@ -26,54 +24,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
 
     protected TreeNode<E> createNewNode(E element) {
         return new TreeNode<>(element);
-    }
-
-    @Override
-    public boolean insert(E element) {
-        if (root == null) {
-            root = createNewNode(element);
-        } else {
-            /*Locate the parent Node*/
-            TreeNode<E> parent = null;
-            TreeNode<E> current = root;
-            while (current != null) {
-                if (element.compareTo(current.element) < 0) {
-                    parent = current;
-                    current = current.left;
-                } else if (element.compareTo(current.element) > 0) {
-                    parent = current;
-                    current = current.right;
-                } else return false; /*Duplicate node not inserted*/
-            }
-            if (element.compareTo(parent.element) < 0)
-                parent.left = createNewNode(element);
-            else
-                parent.right = createNewNode(element);
-        }
-        size++;
-        return true; /*element inserted successfully*/
-    }
-
-    public boolean isContains(E element) {
-        if (root.element == element) {
-            return true;
-        }
-        return search(element) != null;
-    }
-
-    public TreeNode<E>[] search(E element) {
-        TreeNode<E> current = root;
-        TreeNode<E> parent = null;
-        while (current != null) {
-            if (element.compareTo(current.element) < 0) {
-                parent = current;
-                current = current.left;
-            } else if (element.compareTo(current.element) > 0) {
-                parent = current;
-                current = current.right;
-            } else return new TreeNode[]{parent, current};
-        }
-        return null;
     }
 
     @Override
@@ -115,26 +65,72 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         System.out.println(node.element + " ");
     }
 
+    @Override
+    public boolean insert(E element) {
+        if (root == null) {
+            root = createNewNode(element);
+        } else {
+            /*Locate the parent Node*/
+            TreeNode<E> parent = null;
+            TreeNode<E> current = root;
+            while (current != null) {
+                if (element.compareTo(current.element) < 0) {
+                    parent = current;
+                    current = current.left;
+                } else if (element.compareTo(current.element) > 0) {
+                    parent = current;
+                    current = current.right;
+                } else return false; /*Duplicate node not inserted*/
+            }
+            if (element.compareTo(parent.element) < 0)
+                parent.left = createNewNode(element);
+            else
+                parent.right = createNewNode(element);
+        }
+        size++;
+        return true; /*element inserted successfully*/
+    }
+
+    public void insertRecursive(E element) {
+        if (root == null) {
+            root = createNewNode(element);
+        }
+        insertRecursive(root,element);
+    }
+
+
+    private TreeNode<E> insertRecursive(TreeNode<E> treeNode, E element) {
+        if (treeNode == null) {
+            treeNode = createNewNode(element);
+        }
+        if (element.compareTo(treeNode.element) < 0) {
+            treeNode.left = insertRecursive(treeNode.left,element);
+        } else if (element.compareTo(treeNode.element) > 0) {
+            treeNode.right = insertRecursive(treeNode.right,element);
+        }
+        return treeNode;
+    }
+
     public boolean delete(E value) {
         return deleteRecursively(root,value) != null;
     }
 
-    public TreeNode<E> deleteRecursively(TreeNode<E> node, E element) {
-        if (node == null)
+    protected TreeNode<E> deleteRecursively(TreeNode<E> root, E element) {
+        if (root == null)
             return null;
-        if (element.compareTo(node.element) < 0) {
-            node.left = deleteRecursively(node.left, element);
-        } else if (element.compareTo(node.element) > 0) {
-            node.right = deleteRecursively(node.right, element);
+        if (element.compareTo(root.element) < 0) {
+            root.left = deleteRecursively(root.left, element);
+        } else if (element.compareTo(root.element) > 0) {
+            root.right = deleteRecursively(root.right, element);
         } else {
-            if (node.left == null) {
-                return node.right;
-            } else if (node.right == null)
-                return node.left;
-            node.element = findRightMost(node.left);
-            node.left = deleteRecursively(node.left,node.element);
+            if (root.left == null) {
+                return root.right;
+            } else if (root.right == null)
+                return root.left;
+            root.element = findRightMost(root.left);
+            root.left = deleteRecursively(root.left,root.element);
         }
-        return node;
+        return root;
     }
 
     private E findRightMost(TreeNode<E> treeNode) {
@@ -143,5 +139,27 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
             current = current.right;
         }
         return current.element;
+    }
+
+    public boolean isContains(E element) {
+        if (root.element == element) {
+            return true;
+        }
+        return searchParent(element) != null;
+    }
+
+    public TreeNode<E> searchParent(E element) {
+        TreeNode<E> current = root;
+        TreeNode<E> parent = null;
+        while (current != null) {
+            if (element.compareTo(current.element) < 0) {
+                parent = current;
+                current = current.left;
+            } else if (element.compareTo(current.element) > 0) {
+                parent = current;
+                current = current.right;
+            } else return parent;
+        }
+        return null;
     }
 }
