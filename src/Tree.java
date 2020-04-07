@@ -13,6 +13,18 @@ public interface Tree<E> {
     void inOrderDisplay();
 
     /**
+     * Pre-order traversal from the root
+     */
+
+    void preOrderDisplay();
+
+    /**
+     * Post-order traversal from the root
+     */
+
+    void postOrderDisplay();
+
+    /**
      * Get the number of nodes in the tree
      */
 

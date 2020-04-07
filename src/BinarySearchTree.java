@@ -5,13 +5,13 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         private TreeNode<E> right;
         private int size;
 
-        public TreeNode(E element) {
+        private TreeNode(E element) {
             this.element = element;
         }
     }
 
-    protected TreeNode<E> root;
-    protected int size = 0;
+    private TreeNode<E> root;
+    private int size = 0;
 
     public BinarySearchTree() {
     }
@@ -36,7 +36,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         inOrderDisplay(root);
     }
 
-    protected void inOrderDisplay(TreeNode<E> node) {
+    private void inOrderDisplay(TreeNode<E> node) {
         if (node == null) return;
         inOrderDisplay(node.left);
         System.out.println(node.element + " ");
@@ -47,7 +47,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         preOrderDisplay(root);
     }
 
-    protected void preOrderDisplay(TreeNode<E> node) {
+    private void preOrderDisplay(TreeNode<E> node) {
         if (node == null) return;
         System.out.println(node.element + " ");
         preOrderDisplay(node.left);
@@ -58,7 +58,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         postOrderDisplay(root);
     }
 
-    protected void postOrderDisplay(TreeNode<E> node) {
+    private void postOrderDisplay(TreeNode<E> node) {
         if (node == null) return;
         postOrderDisplay(node.left);
         postOrderDisplay(node.right);
@@ -98,7 +98,6 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         insertRecursive(root,element);
     }
 
-
     private TreeNode<E> insertRecursive(TreeNode<E> treeNode, E element) {
         if (treeNode == null) {
             treeNode = createNewNode(element);
@@ -115,9 +114,8 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return deleteRecursively(root,value) != null;
     }
 
-    protected TreeNode<E> deleteRecursively(TreeNode<E> root, E element) {
-        if (root == null)
-            return null;
+    private TreeNode<E> deleteRecursively(TreeNode<E> root, E element) {
+        if (root == null) return null;
         if (element.compareTo(root.element) < 0) {
             root.left = deleteRecursively(root.left, element);
         } else if (element.compareTo(root.element) > 0) {
@@ -161,5 +159,20 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
             } else return parent;
         }
         return null;
+    }
+
+    public boolean searchRecursive(E element) {
+        return searchRecursive(root,element);
+    }
+
+    private boolean searchRecursive(TreeNode<E> root, E element) {
+        if (root == null) {
+            return false;
+        }
+        if (element.compareTo(root.element) > 0) {
+            return searchRecursive(root.right,element);
+        } else if (element.compareTo(root.element) < 0) {
+            return searchRecursive(root.left,element);
+        } else return true;
     }
 }

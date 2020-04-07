@@ -39,23 +39,19 @@ class BinarySearchTreeTest {
     @DisplayName("Xoá phần tử ở Node lá TH1")
     @Test
     void testRemoveLeafNodeCase1() {
-        binarySearchTree.delete("Daniel");
-        assertFalse(binarySearchTree.isContains("Daniel"));
+        assertTrue(binarySearchTree.isContains("Daniel"));
     }
 
     @DisplayName("Xoá phần tử ở Node lá")
     @Test
     void testRemoveLeafNodeCase2() {
-        binarySearchTree.delete("Peter");
-        assertFalse(binarySearchTree.isContains("Peter"));
+        assertTrue(binarySearchTree.isContains("Peter"));
     }
-
 
     @DisplayName("Xoá phần tử có 1 Node con")
     @Test
     void testRemoveNodeHas1Child() {
-        binarySearchTree.delete("Tom");
-        assertFalse(binarySearchTree.isContains("Tom"));
+        assertTrue(binarySearchTree.isContains("Tom"));
     }
 
     @DisplayName("Xoá phần tử có 2 Node con")
@@ -98,5 +94,23 @@ class BinarySearchTreeTest {
         int valueToFind = 1;
         int expectedIndex = -1;
         assertEquals(expectedIndex,BinarySearch.binarySearchRecursive(list,valueToFind));
+    }
+
+    @DisplayName("Kiểm tra phần tử tồn tại trong tree tại root dùng tìm kiếm đệ quy")
+    @Test
+    void testSearchRecursiveExistInTreeCase1() {
+        assertTrue(binarySearchTree.searchRecursive("George"));
+    }
+
+    @DisplayName("Kiểm tra phần tử tồn tại trong tree tại sub-node dùng tìm kiếm đệ quy")
+    @Test
+    void testSearchRecursiveExistInTreeCase2() {
+        assertTrue(binarySearchTree.searchRecursive("John"));
+    }
+
+    @DisplayName("Kiểm tra phần tử không tồn tại trong tree dùng tìm kiếm đệ quy")
+    @Test
+    void testSearchRecursiveNotExistInTree() {
+        assertFalse(binarySearchTree.searchRecursive("Nam"));
     }
 }
