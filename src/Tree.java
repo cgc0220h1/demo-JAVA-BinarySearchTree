@@ -10,7 +10,7 @@ public interface Tree<E> {
      * In-order traversal from the root
      */
 
-    void inOrder();
+    void inOrderDisplay();
 
     /**
      * Get the number of nodes in the tree

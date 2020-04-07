@@ -5,34 +5,62 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchTreeTest {
-    private BinarySearchTree<String> tree = new BinarySearchTree<>();
+    private BinarySearchTree<String> binarySearchTree = new BinarySearchTree<>();
 
     @BeforeEach
     void createTree() {
-        tree.insert("George");
-        tree.insert("Michael");
-        tree.insert("Tom");
-        tree.insert("Adam");
-        tree.insert("John");
-        tree.insert("Peter");
-        tree.insert("Daniel");
+        binarySearchTree.insert("George");
+        binarySearchTree.insert("Michael");
+        binarySearchTree.insert("Tom");
+        binarySearchTree.insert("Adam");
+        binarySearchTree.insert("John");
+        binarySearchTree.insert("Peter");
+        binarySearchTree.insert("Daniel");
     }
 
     @DisplayName("Kiểm tra phần tử tồn tại trong tree tại root")
     @Test
     void testSearchExistInTreeCase1() {
-        assertTrue(tree.search("George"));
+        assertTrue(binarySearchTree.isContains("George"));
     }
 
     @DisplayName("Kiểm tra phần tử tồn tại trong tree tại sub-node")
     @Test
     void testSearchExistInTreeCase2() {
-        assertTrue(tree.search("John"));
+        assertTrue(binarySearchTree.isContains("John"));
     }
 
     @DisplayName("Kiểm tra phần tử không tồn tại trong tree")
     @Test
     void testSearchNotExistInTree() {
-        assertFalse(tree.search("Nam"));
+        assertFalse(binarySearchTree.isContains("Nam"));
+    }
+
+    @DisplayName("Xoá phần tử ở Node lá TH1")
+    @Test
+    void testRemoveLeafNodeCase1() {
+        binarySearchTree.delete("Daniel");
+        assertFalse(binarySearchTree.isContains("Daniel"));
+    }
+
+    @DisplayName("Xoá phần tử ở Node lá")
+    @Test
+    void testRemoveLeafNodeCase2() {
+        binarySearchTree.delete("Peter");
+        assertFalse(binarySearchTree.isContains("Peter"));
+    }
+
+
+    @DisplayName("Xoá phần tử có 1 Node con")
+    @Test
+    void testRemoveNodeHas1Child() {
+        binarySearchTree.delete("Tom");
+        assertFalse(binarySearchTree.isContains("Tom"));
+    }
+
+    @DisplayName("Xoá phần tử có 2 Node con")
+    @Test
+    void testRemoveNodeHas2Child() {
+        assertTrue(binarySearchTree.delete("Michael"));
     }
 }
