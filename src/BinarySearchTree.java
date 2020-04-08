@@ -31,6 +31,11 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return size;
     }
 
+    private int checkSize(TreeNode<E> node) {
+        if (node == null ) return 0;
+        return checkSize(node.left) + 1 + checkSize(node.right);
+    }
+
     @Override
     public void inOrderDisplay() {
         inOrderDisplay(root);
@@ -94,39 +99,43 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
     public void insertRecursive(E element) {
         if (root == null) {
             root = createNewNode(element);
+            size++;
         }
-        insertRecursive(root,element);
+        insertRecursive(root, element);
     }
 
     private TreeNode<E> insertRecursive(TreeNode<E> treeNode, E element) {
         if (treeNode == null) {
             treeNode = createNewNode(element);
+            size++;
         }
         if (element.compareTo(treeNode.element) < 0) {
-            treeNode.left = insertRecursive(treeNode.left,element);
+            treeNode.left = insertRecursive(treeNode.left, element);
         } else if (element.compareTo(treeNode.element) > 0) {
-            treeNode.right = insertRecursive(treeNode.right,element);
+            treeNode.right = insertRecursive(treeNode.right, element);
         }
         return treeNode;
     }
 
-    public boolean delete(E value) {
-        return deleteRecursively(root,value) != null;
+    public void remove(E element) {
+        deleteRecursive(root, element);
+        size = checkSize(root);
     }
 
-    private TreeNode<E> deleteRecursively(TreeNode<E> root, E element) {
+    private TreeNode<E> deleteRecursive(TreeNode<E> root, E element) {
         if (root == null) return null;
         if (element.compareTo(root.element) < 0) {
-            root.left = deleteRecursively(root.left, element);
+            root.left = deleteRecursive(root.left, element);
         } else if (element.compareTo(root.element) > 0) {
-            root.right = deleteRecursively(root.right, element);
+            root.right = deleteRecursive(root.right, element);
         } else {
             if (root.left == null) {
                 return root.right;
-            } else if (root.right == null)
+            } else if (root.right == null) {
                 return root.left;
+            }
             root.element = findRightMost(root.left);
-            root.left = deleteRecursively(root.left,root.element);
+            root.left = deleteRecursive(root.left, root.element);
         }
         return root;
     }
@@ -139,7 +148,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
         return current.element;
     }
 
-    public boolean isContains(E element) {
+    public boolean search(E element) {
         if (root.element == element) {
             return true;
         }
@@ -162,7 +171,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
     }
 
     public boolean searchRecursive(E element) {
-        return searchRecursive(root,element);
+        return searchRecursive(root, element);
     }
 
     private boolean searchRecursive(TreeNode<E> root, E element) {
@@ -170,9 +179,9 @@ public class BinarySearchTree<E extends Comparable<E>> extends AbstractTree<E> {
             return false;
         }
         if (element.compareTo(root.element) > 0) {
-            return searchRecursive(root.right,element);
+            return searchRecursive(root.right, element);
         } else if (element.compareTo(root.element) < 0) {
-            return searchRecursive(root.left,element);
+            return searchRecursive(root.left, element);
         } else return true;
     }
 }

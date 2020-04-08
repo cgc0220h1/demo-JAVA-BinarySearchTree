@@ -16,22 +16,22 @@ public class BinarySearch {
     }
 
     static int binarySearchRecursive(int[] list, int value) {
-        int low = 0;
-        int high = list.length - 1;
-        return binarySearchRecursive(list, low, high, value);
+        int left = 0;
+        int right = list.length - 1;
+        return binarySearchRecursive(list, left, right, value);
     }
 
-    private static int binarySearchRecursive(int[] list, int low, int high, int value) {
-        if (high >= low) {
-            int mid = low + (high - low) / 2;
-            if (value == list[mid]) {
-                return mid;
-            } else if (value < list[mid]) {
-                return binarySearchRecursive(list, low, mid - 1, value);
-            } else {
-                return binarySearchRecursive(list, mid + 1, high, value);
-            }
+    private static int binarySearchRecursive(int[] list, int left, int right, int value) {
+        if (left > right) {
+            return -1;
         }
-        return -1;
+        int mid = (left + right) / 2;
+        if (value == list[mid]) {
+            return mid;
+        } else if (value < list[mid]) {
+            return binarySearchRecursive(list, left, mid - 1, value);
+        } else {
+            return binarySearchRecursive(list, mid + 1, right, value);
+        }
     }
 }

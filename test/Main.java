@@ -17,6 +17,8 @@ public class Main {
         tree.insertRecursive("John");
         tree.insertRecursive("Peter");
         tree.insertRecursive("Daniel");
+        tree.insertRecursive("John");
+        tree.insertRecursive("Daniel");
         //traverse tree
         System.out.println("In-order (sorted by method compareTo of super class): ");
         tree.inOrderDisplay();
@@ -35,10 +37,18 @@ public class Main {
         System.out.println("The Number of node is: " + tree.getSize());
         System.out.println("-------------------------");
 
-        //Delete 1 element
-        System.out.println("Delete node: ");
-        tree.delete("George");
+        //Delete exist element
+        System.out.println("Delete node George: ");
+        tree.remove("George");
         tree.inOrderDisplay();
+        System.out.println("The Number of node is: " + tree.getSize());
+        System.out.println("-------------------------");
+
+        //Delete non-exist element
+        System.out.println("Delete node Nam: ");
+        tree.remove("Nam");
+        tree.inOrderDisplay();
+        System.out.println("The Number of node is: " + tree.getSize());
         System.out.println("-------------------------");
 
         //Binary Search
